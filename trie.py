@@ -19,7 +19,8 @@ class Trie(object):
                 curr.children[c] = TrieNode()
             curr = curr.children[c]
         curr.wordEnd = True
-        
+    
+    # simple search with no allowed sym substitutions
     def search(self, word):
         """
         :type word: str
@@ -33,6 +34,7 @@ class Trie(object):
             curr = curr.children[c]
         return curr.wordEnd
     
+    # More complex search with 1 allowed substitution
     def search2(self, word):
         """
         :type word: str
