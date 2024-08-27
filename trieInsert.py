@@ -52,6 +52,8 @@ if __name__ == "__main__":
     start = time.time()
     print(trie.search("Абажур"))
     print(trie.search("Размер"))
+    print(trie.autocomplete("Аббат"))
+    print(trie.autocomplete("Аб"))
     end = time.time()
     total_time = end - start
     print(f"Your programm executed in  {total_time} seconds")
