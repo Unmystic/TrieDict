@@ -52,7 +52,7 @@ class Trie(object):
         return suggestions
     
     def findWords(self,node,word,suggestions):
-        if len(suggestions) > 5:
+        if len(suggestions) >= 10:
             return
         if node.wordEnd:
             suggestions.append(word)
