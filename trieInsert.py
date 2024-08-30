@@ -6,16 +6,29 @@ import logging
 
 
 def insertDict(location, trie):
+    """Insert in trie words from ordinary dictionary
+
+    Args:
+        location (str): location of the dictionary
+        trie (Trie): empty or premade Trie
+    """
     with open(location, "r", encoding="cp1251", newline="") as file:
         words = file.readlines()
         print(words[:10])
         for word in words:
-            trie.insert(word.rstrip())
+            trie.insert(word.rstrip().title())
             # print(f"Word is : {word}")
 
 
 # Insertion words from smaller dictionary but with definitions 
 def insertDict2(location, trie):
+    """Create dict with words and definitions , while filling Trie only
+    with words. Preemtive line formating usualy neccesary
+
+    Args:
+        location (str): location of the dictionary
+        trie (Trie): empty or premade Trie
+    """
     with open(location, "r", encoding="cp1251", newline="") as file:
         # Creating dict with definitions for every word
         words = []

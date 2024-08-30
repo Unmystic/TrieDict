@@ -58,31 +58,6 @@ class Trie(object):
             suggestions.append(word)
         for char, next_node in node.children.items():
             self.findWords(next_node, word + char, suggestions)
-
-    # def _search_node(self, prefix):
-    #     node = self.root
-    #     for char in prefix:
-    #         if char not in node.children:
-    #             return None
-    #         node = node.children[char]
-    #     return node
-
-    # def autocomplete(self, prefix):
-    #     node = self._search_node(prefix)
-    #     if not node:
-    #         return []
-
-    #     suggestions = []
-    #     self._find_words(node, prefix, suggestions)
-    #     return suggestions
-
-    # def _find_words(self, node, prefix, suggestions):
-    #     if node.is_end_of_word:
-    #         suggestions.append(prefix)
-
-    #     for char, next_node in node.children.items():
-    #         self._find_words(next_node, prefix + char, suggestions)
-
     
     # More complex search with 1 allowed substitution
     def search2(self, word):

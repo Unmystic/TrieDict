@@ -1,29 +1,13 @@
-# import flet as ft
-
-# def main(page: ft.Page):
-#     page.add(
-#         ft.AutoComplete(
-#             suggestions=[
-#                 ft.AutoCompleteSuggestion(key="one 1", value="One"),
-#                 ft.AutoCompleteSuggestion(key="two 2", value="Two"),
-#                 ft.AutoCompleteSuggestion(key="three 3", value="Three"),
-#             ],
-#             on_select=lambda e: print(e.control.selected_index, e.selection),
-#         )
-#     )
-
-# ft.app(target=main)
-
 import flet as ft
 from trie import Trie,TrieNode
-from trieInsert import insertDict2
+from trieInsert import insertDict2, insertDict
 
 class CustomAutoComplete_Widget():
     def __init__(self, page, items,col):
         self.page = page
         self.items = items
         self.col = col
-        self.filtered_items = items.copy()
+        self.filtered_items = []
         self._build()
 
     def _build(self):
@@ -52,7 +36,9 @@ class CustomAutoComplete_Widget():
     def _filter_list(self, e):
         query = e.control.value.lower()
         if query:
-            self.filtered_items = [item for item in self.items if query in item.lower()]
+            # self.filtered_items = [item for item in self.items if query in item.lower()]
+            self.filtered_items = self.items.autocomplete(query.title())
+            print(len(self.filtered_items))
         else:
             self.filtered_items = []
         self.list_view.controls = [
@@ -74,32 +60,19 @@ class CustomAutoComplete_Widget():
 def main(page: ft.Page):
     page.title = "Filtered List Example"
 
-
     with open("./dictionaries/russian.txt", "r", encoding="cp1251", newline="") as file:
         words = file.readlines()
         print(words[:10])
-    all_items = ["fruit" + str(i) for i in range(1, 1001)]
+    
+    trie = Trie()
+    insertDict("./dictionaries/russian.txt",trie)
+    # insertDict2("./dictionaries/rudict.txt",trie)
+    # all_items = ["fruit" + str(i) for i in range(1, 1001)]
 
     column = ft.Column(
     )
 
-    CustomAutoComplete_Widget(page, words,column)
+    CustomAutoComplete_Widget(page, trie,column)
 
 
 ft.app(target=main)
-
-# import flet as ft
-
-
-# def main(page: ft.Page):
-#     list_example = ["one 1", "two 2", "three 3"]
-#     auto_complete = ft.AutoComplete(
-#         suggestions=[ft.AutoCompleteSuggestion(value=i) for i in list_example],
-#         on_select=lambda e: print(e.selection),
-#     )
-#     text_file = ft.TextField(width=400)
-#     page.add(ft.Row([ft.Column([text_file, ft.Stack(controls=[auto_complete],width=400)]),
-#                                 ft.Column([text_file, ft.Stack(controls=[auto_complete],width=400)])]))
-
-
-# ft.app(target=main)
