@@ -52,6 +52,8 @@ def insertDict2(location, trie):
 
         for word in words:
             trie.insert(word.rstrip())
+        
+        return wordDict
 
 if __name__ == "__main__":
     start = time.time()

@@ -11,8 +11,9 @@ class TodoApp(ft.Column):
         self.tasks_view = ft.Column()
         self.width = 600
         self.trie = Trie()
-        insertDict2("./dictionaries/rudict.txt",self.trie)
-        
+        self.wordDict = insertDict2("./dictionaries/rudict.txt",self.trie)
+        self.defArea = ft.Column()
+            
         self.list_view = ft.ListView(
             expand=1,
             spacing=10,
@@ -31,7 +32,6 @@ class TodoApp(ft.Column):
                 self.list_cont,                    
             ],
         )
-
         
         self.controls = [
             ft.Row(
@@ -71,13 +71,32 @@ class TodoApp(ft.Column):
                 ],
             ),
             self.list_cont,
-            
+            self.tasks_view,
+            self.defArea,          
         ]
 
     def add_clicked(self, e):
-        self.tasks_view.controls.append(ft.Checkbox(label=self.new_task.value))
-        self.new_task.value = ""
-        self.update()
+        if self.text_field.value:
+            worddef =  "Слово не найдено"
+            if self.text_field.value in self.wordDict:
+                worddef = self.wordDict[self.text_field.value]
+            definition = ft.Container(
+                    content=ft.Text(worddef),
+                    margin=10,
+                    padding=10,
+                    alignment=ft.alignment.center,
+                    width=600,
+                    bgcolor=ft.colors.CYAN_200,
+                    # height=150,
+                    border_radius=10,
+                    ink=True,
+                    on_click=lambda e: print("Clickable transparent with Ink clicked!"),
+                ),
+            self.defArea.controls = definition
+            # self.page.add(ft.Column(definition))
+            self.text_field.value = ""
+            self.update()
+            
 
     def _filter_list(self, e):
         query = e.control.value.lower()
@@ -162,14 +181,11 @@ class CustomAutoComplete_Widget():
 def main(page: ft.Page):
     page.title = "Dictionary with definitions"
     
+    
     with open("./dictionaries/russian.txt", "r", encoding="cp1251", newline="") as file:
         words = file.readlines()
         print(words[:10])
     
-    trie = Trie()
-    # insertDict("./dictionaries/russian.txt",trie)
-    insertDict2("./dictionaries/rudict.txt",trie)
-    # all_items = ["fruit" + str(i) for i in range(1, 1001)]
 
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.update()
@@ -180,11 +196,6 @@ def main(page: ft.Page):
     # add application's root control to the page
     page.add(todo)
 
-
-    # column = ft.Column(
-    # )
-
-    # CustomAutoComplete_Widget( trie,column)
 
 
 ft.app(target=main)
