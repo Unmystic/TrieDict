@@ -118,6 +118,7 @@ class TodoApp(ft.Column):
         self.text_field.value = item
         self.filtered_items = []
         self.list_view.controls = [] 
+        self.defArea.controls = []
         self.page.update()
         print(f"Selected item: {item}") 
 
@@ -180,6 +181,9 @@ class CustomAutoComplete_Widget():
 
 def main(page: ft.Page):
     page.title = "Dictionary with definitions"
+    page.window.height = 480
+    page.window.width = 640
+    page.window.center()
     
     
     with open("./dictionaries/russian.txt", "r", encoding="cp1251", newline="") as file:
