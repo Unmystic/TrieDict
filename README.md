@@ -2,7 +2,7 @@
 ## Simple python Trie adaptation with example of dictionary loadout.
 
 Trie is a variation of tree datastructure, that well suited for quick comparison purposes, such as Autocomplete.
-In its base form it consist is tree class and its constructor - node class. Per <code>trie.py</code> :
+In its base form it consist of tree class and its constructor - node class. Per <code>trie.py</code> :
 ```
 class TrieNode(object):
     def __init__(self):
@@ -14,7 +14,7 @@ class Trie(object):
         self.root = TrieNode()
 ```
 
-Trie file includes all fuctionality methods for default trie operations: search and insertion. Core of autocomplete fuction also in  Trie class methods.
+Trie file includes all fuctionality methods for default trie operations: search and insertion. Core of autocomplete fuctionality also in  Trie class methods.
 
 File `dictread.py` describes simple File open interaction. Used only for test purposes. 
 
